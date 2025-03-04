@@ -58,14 +58,14 @@ class Triangle:
     
     def is_valid(self):
         return self.a + self.b > self.c and self.a + self.c > self.b and self.b + self.c > self.a   # Перевірка чи існує трикутник з такими сторонами
-    
     def perimeter(self):  # Метод для обчислення периметра
-        return self.a + self.b + self.c     # Периметр трикутника
+        self.a + self.b + self.c     # Периметр трикутника
+        print(f"++++++++++++++++++++++++++++++++Периметр трикутника = {self.perimeter()}")
     
     def area(self):  # Метод для обчислення площі трикутника
         s = self.perimeter() / 2
-        return math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c)) # Площа трикутника
-
+        math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c)) # Площа трикутника
+        print(f"++++++++++++++++++++++++++++++++Площа трикутника = {self.area()}")
 #приклад з посібника
 #class Triangle:
  #def __init__(self, a, b, c):
@@ -97,22 +97,22 @@ class Parallelogram:
         self.height = height # висота паралелограма
     
     def perimeter(self):  # Метод для обчислення периметра
-        return 2 * (self.base + self.side) # Периметр паралелограма
-    
+        2 * (self.base + self.side) # Периметр паралелограма
+        print(f"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Периметр паралелограма = {self.perimeter()}")
     def area(self):  # Метод для обчислення площі паралелограма
-        return self.base * self.height # Площа паралелограма
-
+        self.base * self.height # Площа паралелограма
+        print(f"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Площа паралелограма = {self.area()}")
 
 class Circle:
     def __init__(self, radius):  # Ініціалізація об'єкта класу Circle
         self.radius = radius  # Збереження радіуса кола
     
     def perimeter(self):  # Метод для обчислення довжини кола
-        return 2 * math.pi * self.radius # Довжина кола
-    
+        2 * math.pi * self.radius # Довжина кола
+        print(f"()()()()()()()()()()()()()Довжина кола = {self.perimeter()}")
     def area(self):  # Метод для обчислення площі кола
-        return math.pi * self.radius ** 2   # Площа кола
-    
+        math.pi * self.radius ** 2   # Площа кола
+        print(f"()()()()()()()()()()()()()Площа кола = {self.area()}")
     def __str__(self):  # Метод для виведення рядкового представлення об'єкта
         return f"Circle(radius={self.radius})" # Рядкове представлення об'єкта
 
@@ -121,15 +121,31 @@ class Circle:
 
 def read_numbers_from_file(file_name): # Функція для зчитування чисел з файлу
     try: # Захоплюємо винятки, якщо вони виникають
-        with open(file_name, 'r') as file: # Відкриваємо файл для читання
-            numbers = [float(x) for line in file for x in line.split()]
+        with open(file_name, 'r') as file:
+            lines = file.readlines()
+            if not lines:
+                print(f"Файл {file_name} порожній.")
+                return []
+            shape_type = lines[0].strip()
+            numbers = [float(x) for line in lines[1:] for x in line.split()] # Відкриваємо файл для читання
+            if numbers == 'Parallelogram'and len(numbers) == 3:
+                p = Parallelogram()
+                print(f"Parallelogram: {p}")
+            elif numbers == 'Triangle'and len(numbers) == 3:
+                t = Triangle()
+                print(f"Parallelogram: {t}")
+            elif numbers == 'Circle'and len(numbers) == 1:
+                c = Circle()
+                print(f"Parallelogram: {c}")
+            else:
+                print("Невідомий тип фігури (#_#)")
         print(f"Файл {file_name} містить числа: {numbers}")  # Виводимо зчитані числа
         return numbers # Повертаємо зчитані числа
     except (FileNotFoundError, PermissionError): # Обробляємо винятки
-        print(f"Не вдалося відкрити файл: {file_name}")     # Виводимо повідомлення про помилку
+        print(f"Не вдалося відкрити файл (#_#): {file_name}")     # Виводимо повідомлення про помилку
         return [] # Повертаємо порожній список
     except ValueError:  # Обробляємо винятки
-        print(f"У файлі {file_name} є недійсні числа.") # Виводимо повідомлення про помилку
+        print(f"У файлі {file_name} є недійсні числа(#_#).") # Виводимо повідомлення про помилку
         return [] # Повертаємо порожній список
 
 def sum_numbers_from_files(content_file): # Функція для підсумовування чисел з файлів
@@ -147,7 +163,7 @@ def sum_numbers_from_files(content_file): # Функція для підсумо
                 numbers = read_numbers_from_file(file_name) # Зчитуємо числа з файлу
                 total_sum += sum(numbers) # Додаємо числа до загальної суми
     except (FileNotFoundError, PermissionError): # Обробляємо винятки
-        print(f"Не вдалося відкрити файл: {content_file}")
+        print(f"Не вдалося відкрити файл(#_#): {content_file}")
     
     return total_sum # Повертаємо загальну суму чисел
 
