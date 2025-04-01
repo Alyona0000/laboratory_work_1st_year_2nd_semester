@@ -1,5 +1,6 @@
 def read(filename):
     file = open(filename, "r")
-    content = file.read()
+    #content = file.read()
+    lines = file.readlines() 
     file.close()
-    return content
+    return lines
