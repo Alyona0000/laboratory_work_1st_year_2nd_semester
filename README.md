@@ -1,0 +1,1 @@
+- lab1 https://github.com/Alyona0000/laboratory_work_1st_year_2nd_semester/tree/main/lab1
