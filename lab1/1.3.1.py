@@ -101,8 +101,10 @@ class Circle:
         return math.pi * self.radius ** 2 # Площа кола    
     
 def Distribution(file_name):
-   d=open(file_name) # Викликаємо функцію read для зчитування файлу
-   for line in d: 
+    d=open(file_name) # Викликаємо функцію read для зчитування файлу
+    max_area =0
+    max_area_obj = None # Ініціалізуємо максимальну площу та об'єкт з максимальною площею
+    for line in d: 
         line = line.split()  
         try:
             if line[0] == "Parallelogram" :
@@ -120,11 +122,15 @@ def Distribution(file_name):
             print("Помилка при створенні фігури")
             print(line)
             continue
-
+    
         print(f"{line[0]} area:{obj.area()}") # Виводимо площу фігури
-        # Виводимо інформацію про трикутник    
-        
-            
+        if obj.area() > max_area: # Якщо площа фігури більша за максимальну площу
+            max_area = obj.area() # Оновлюємо максимальну площу
+            max_area_obj = obj # Оновлюємо об'єкт з максимальною площею   
+
+    print(f"Максимальна площа: {max_area_obj.area()}") # Виводимо максимальну площу
+    print(max_area_obj)
+    #print(f"Максимальний периметр: {max_area_obj.perimeter()}") # Виводимо максимальний периметр            
     
   
     
