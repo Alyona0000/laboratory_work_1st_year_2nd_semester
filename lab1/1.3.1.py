@@ -19,6 +19,8 @@
 #input02.txt
 #input03.txt
 #за посиланням
+
+
 from reader import read 
 import math
 import os # Імпортуємо модуль os для роботи з операційною системою
@@ -139,90 +141,13 @@ def Distribution(file_name):
     print(f"Максимальний периметр (0_0): {max_area_obj.perimeter()}") # Виводимо максимальний периметр            
     print (max_perimeter_obj)
   
-    
-    
-    
-    
-    
-    
-      # Функція для розподілу фігур по файлах
-    #with open(file_name, 'r') as file: # Відкриваємо файл для читання
-     #   lines = file.readlines()
-      #  shape_type = lines[0].strip() 
-       # if shape_type == 'Parallelogram':
-        #    a = class Parallelogram
-        #elif shape_type == 'Circle':
-         #   a = class Circle
-        #elif shape_type == 'Circle':
-        #    a = class Rectangle
-        #elif shape_type == 'Triangle':
-        #    a = class Triangle
-
-    
-
-
-
 
 read("input01.txt")
 read("input02.txt")
 read("input03.txt")
-
-
-
-########################################################################################################################################
-def read_numbers_from_file(file_name): # Функція для зчитування чисел з файлу
-    try: # Захоплюємо винятки, якщо вони виникають
-        with open(file_name, 'r') as file:
-            lines = file.readlines()
-            if not lines:
-                print(f"Файл {file_name} порожній.")
-                return None
-            shape_type = lines[0].strip()
-            numbers = [float(x) for line in lines[1:] for x in line.split()] # Відкриваємо файл для читання
-            
-            if shape_type == 'Parallelogram' and len(numbers) == 4:
-                shape = Parallelogram(*numbers)
-            elif shape_type == 'Triangle' and len(numbers) == 3:
-                shape = Triangle(*numbers)
-            elif shape_type == 'Circle' and len(numbers) == 1:
-                shape = Circle(*numbers)
-            else:
-                print("Невідомий тип фігури або неправильна кількість параметрів (#_#)")
-                return None
-            
-            print(f"{shape_type}: {shape}")
-            return shape
-    except (FileNotFoundError, PermissionError): # Обробляємо винятки
-        print(f"Не вдалося відкрити файл (#_#): {file_name}")     # Виводимо повідомлення про помилку
-        return None # Повертаємо None
-    except ValueError:  # Обробляємо винятки
-        print(f"У файлі {file_name} є недійсні числа(#_#).") # Виводимо повідомлення про помилку
-        return None # Повертаємо None
-
-def sum_numbers_from_files(content_file): # Функція для підсумовування чисел з файлів
-    if not os.path.exists(content_file): # Перевіряємо чи існує файл
-        print(f"Файл {content_file} не знайдено!") # Виводимо повідомлення про помилку
-        return None # Повертаємо None
-
-    total_sum = 0 # Ініціалізуємо загальну суму
-    try:
-        with open(content_file, 'r') as file: # Відкриваємо файл для читання
-            for file_name in file: # Читаємо кожен рядок файлу
-                file_name = file_name.strip() # Видаляємо пробіли з початку та кінця рядка
-                print(f"Зчитано файл: {file_name}") # Виводимо повідомлення про зчитаний файл
-                shape = read_numbers_from_file(file_name) # Зчитуємо числа з файлу
-                if shape:
-                    total_sum += shape.area() # Додаємо площу фігури до загальної суми
-    except (FileNotFoundError, PermissionError): # Обробляємо винятки
-        print(f"Не вдалося відкрити файл(#_#): {content_file}")
-    
-    return total_sum # Повертаємо загальну суму чисел
-
-
 
 # Основна програма
 content_file = input("Введіть ім'я файлу зі списком файлів: ") # Запитуємо ім'я файлу зі списком файлів
 Distribution(content_file) # Викликаємо функцію Distribution для розподілу фігур по файлах
 #result = sum_numbers_from_files(content_file) # Підсумовуємо числа з файлів
 
-#print(f"Загальна сума площ фігур з файлів: {result}")
