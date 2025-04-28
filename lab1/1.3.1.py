@@ -103,7 +103,9 @@ class Circle:
 def Distribution(file_name):
     d=open(file_name) # Викликаємо функцію read для зчитування файлу
     max_area =0
+    max_perimeter = 0 # Ініціалізуємо максимальний периметр
     max_area_obj = None # Ініціалізуємо максимальну площу та об'єкт з максимальною площею
+    max_perimeter_obj = None # Ініціалізуємо максимальний периметр та об'єкт з максимальною площею
     for line in d: 
         line = line.split()  
         try:
@@ -127,11 +129,15 @@ def Distribution(file_name):
         if obj.area() > max_area: # Якщо площа фігури більша за максимальну площу
             max_area = obj.area() # Оновлюємо максимальну площу
             max_area_obj = obj # Оновлюємо об'єкт з максимальною площею   
+        if obj.perimeter() > max_area: # Якщо периметр фігури більший за максимальну площу
+            max_perimeter = obj.perimeter() # Оновлюємо максимальну площу
+            max_perimeter_obj = obj # Оновлюємо об'єкт з максимальною площею
+
 
     print(f"Максимальна площа: {max_area_obj.area()}") # Виводимо максимальну площу
     print(max_area_obj)
-    #print(f"Максимальний периметр: {max_area_obj.perimeter()}") # Виводимо максимальний периметр            
-    
+    print(f"Максимальний периметр (0_0): {max_area_obj.perimeter()}") # Виводимо максимальний периметр            
+    print (max_perimeter_obj)
   
     
     
