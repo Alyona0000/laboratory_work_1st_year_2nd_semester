@@ -190,7 +190,8 @@ def Distribution(file_name):
             print("Помилка при створенні фігури")
             print(line)
             continue
-    
+
+
         print(f"{line[0]} area:{obj.area()}") # Виводимо площу фігури
         if obj.area() > max_area: # Якщо площа фігури більша за максимальну площу
             max_area = obj.area() # Оновлюємо максимальну площу
@@ -205,10 +206,11 @@ read("input01.txt")
 read("input02.txt")
 read("input03.txt")
 
+
 # Основна програма
 content_file = input("Введіть ім'я файлу зі списком файлів: ") # Запитуємо ім'я файлу зі списком файлів
 Distribution(content_file) # Викликаємо функцію Distribution для розподілу фігур по файлах
-#result = sum_numbers_from_files(content_file) # Підсумовуємо числа з файлів
+
 
 
 
