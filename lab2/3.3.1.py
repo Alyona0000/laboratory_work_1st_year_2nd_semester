@@ -89,6 +89,8 @@ class Circle: #Коло================================================
     
     def area(self):  # Метод для обчислення площі паралелограма
         return math.pi * self.radius ** 2 # Площа кола    
+    
+
 class Ball : #Куля================================================
     def __init__(self, radius):  # Ініціалізація об'єкта класу Circle
         self.radius = radius  # радіуса кола
@@ -105,8 +107,7 @@ class Ball : #Куля================================================
 class Cone: #Конус================================================
     def __init__(self, radius, height):  # Ініціалізація об'єкта класу Circle
         self.radius = radius  # радіуса кола
-        self.height = height
-        
+
     
 def Distribution(file_name):
     d=open(file_name) # Викликаємо функцію read для зчитування файлу
