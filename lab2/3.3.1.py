@@ -42,6 +42,26 @@ class TriangularPyramid: #Трикутна піраміда=====================
         return area_triangle * self.height / 3  # Площа піраміди
 
 
+class QuadrangularPyramid: #Чотирикутна піраміда================================================
+    def __init__(self, a, b, c, d, height):  # Ініціалізація об'єкта класу QuadrangularPyramid
+        self.a = a  # Сторона трикутника
+        self.b = b  # Сторона трикутника
+        self.c = c  # Сторона трикутника
+        self.d = d  # Сторона трикутника
+        self.height = height  # Висота піраміди
+
+        if not self.is_valid():
+            raise ValueError("Трикутник із такими сторонами не існує") # Перевірка чи існує трикутник з такими сторонами
+    
+    def is_valid(self):
+        return self.a + self.b > self.c and self.a + self.c > self.b and self.b + self.c > self.a   # Перевірка чи існує трикутник з такими сторонами
+
+    def area(self):  # Метод для обчислення площі піраміди
+        s = (self.a + self.b + self.c + self.d) / 2
+        area_triangle = math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c) * (s - self.d))  # Площа основи піраміди
+        return area_triangle * self.height / 3  # Площа піраміди
+
+
 class Rectangle: #Прямокутник================================================
     def __init__(self, width, height):  # Ініціалізація об'єкта класу Rectangle
         self.width = width  # Збереження ширини прямокутника
@@ -76,6 +96,21 @@ class Parallelogram: #Паралелограм==================================
     def area(self):  # Метод для обчислення площі паралелограма
         return self.base * self.height # Площа паралелограма
         
+class Trapeze: #Трапеція================================================
+    def __init__(self, base1, base2, height):  # Ініціалізація об'єкта класу Trapeze
+        self.base1 = base1  # Збереження основи трапеції
+        self.base2 = base2  # Збереження основи трапеції
+        self.height = height  # Збереження висоти трапеції
+
+        if not self.is_valid():
+            raise ValueError("Трапеція із такими сторонами не існує") # Перевірка чи існує трапеція з такими сторонами
+    
+    def is_valid(self):
+        return self.base1 > 0 and self.base2 > 0 and self.height > 0
+    
+    def area(self):  # Метод для обчислення площі трапеції
+        return (self.base1 + self.base2) * self.height / 2 # Площа трапеції
+
 
 class Circle: #Коло================================================
     def __init__(self, radius):  # Ініціалізація об'єкта класу Circle
@@ -107,7 +142,21 @@ class Ball : #Куля================================================
 class Cone: #Конус================================================
     def __init__(self, radius, height):  # Ініціалізація об'єкта класу Circle
         self.radius = radius  # радіуса кола
+        self.height = height  # висота конуса
 
+        if not self.is_valid():
+            raise ValueError("Таке коло не існує")
+        
+
+    def slant_height(self): # Похила висота конуса
+        return math.sqrt(self.radius**2 + self.height**2)
+
+    def surface_area(self): # Площа поверхні конуса
+        l = self.slant_height()
+        return math.pi * self.radius * (self.radius + l)
+
+    def volume(self): # Обʼєм конуса
+        return (1/3) * math.pi * self.radius**2 * self.height
     
 def Distribution(file_name):
     d=open(file_name) # Викликаємо функцію read для зчитування файлу
