@@ -165,14 +165,24 @@ def Distribution(file_name):
     for line in d: 
         line = line.split()  
         try:
-            if line[0] == "Parallelogram" :
-                obj = Parallelogram(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Parallelogram
-            elif line[0] == "Circle" :
-                obj = Circle(float(line[1])) # Створюємо об'єкт класу Circle
-            elif line[0] == "Rectangle" :
-                obj = Rectangle(float(line[1]), float(line[2])) # Створюємо об'єкт класу Rectangle
-            elif line[0] == "Triangle" :
+            if line[0] == "Triangle" :
                 obj = Triangle(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Triangle
+            elif line[0] == "TriangularPyramid" :
+                obj = TriangularPyramid(float(line[1])) # Створюємо об'єкт класу TriangularPyramid
+            elif line[0] == "QuadrangularPyramid" :
+                obj = QuadrangularPyramid(float(line[1]), float(line[2])) # Створюємо об'єкт класу QuadrangularPyramid
+            elif line[0] == "Rectangle" :
+                obj = Rectangle(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Rectangle
+            elif line[0] == "Parallelogram" :
+                obj = Parallelogram(float(line[1])) # Створюємо об'єкт класу Parallelogram
+            elif line[0] == "Trapeze" :
+                obj = Trapeze(float(line[1]), float(line[2])) # Створюємо об'єкт класу Trapeze
+            elif line[0] == "Circle" :
+                obj = Circle(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Circle
+            elif line[0] == "Ball" :
+                obj = Ball(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Ball
+            elif line[0] == "Cone" :
+                obj = Cone(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Cone
             else:
                 print("Невідомий тип фігури")
                 continue  # Пропускаємо невідомі фігури
