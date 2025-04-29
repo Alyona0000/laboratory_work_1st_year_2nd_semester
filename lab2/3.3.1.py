@@ -1,8 +1,7 @@
 from reader import read 
 import math
-import os # Імпортуємо модуль os для роботи з операційною системою
 
-class Triangle:
+class Triangle: #Трикутник================================================
     def __init__(self, a, b, c):
         self.a = a # Ініціалізація об'єкта класу Triangle сторона трикутника
         self.b = b
@@ -24,7 +23,26 @@ class Triangle:
 
 
 
-class Rectangle:
+class TriangularPyramid: #Трикутна піраміда================================================
+    def __init__(self, a, b, c, height):  # Ініціалізація об'єкта класу TriangularPyramid
+        self.a = a  # Сторона трикутника
+        self.b = b  # Сторона трикутника
+        self.c = c  # Сторона трикутника
+        self.height = height  # Висота піраміди
+
+        if not self.is_valid():
+            raise ValueError("Трикутник із такими сторонами не існує") # Перевірка чи існує трикутник з такими сторонами
+    
+    def is_valid(self):
+        return self.a + self.b > self.c and self.a + self.c > self.b and self.b + self.c > self.a   # Перевірка чи існує трикутник з такими сторонами
+
+    def area(self):  # Метод для обчислення площі піраміди
+        s = (self.a + self.b + self.c) / 2
+        area_triangle = math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c))  # Площа основи піраміди
+        return area_triangle * self.height / 3  # Площа піраміди
+
+
+class Rectangle: #Прямокутник================================================
     def __init__(self, width, height):  # Ініціалізація об'єкта класу Rectangle
         self.width = width  # Збереження ширини прямокутника
         self.height = height  # Збереження висоти прямокутника
@@ -35,13 +53,11 @@ class Rectangle:
     
     def is_valid(self):
         return self.width > 0 and self.height > 0
-
-    def perimeter(self):  # Метод для обчислення периметра
-        return 2 * (self.width + self.height) # Периметр прямокутника
+    
     def area(self):  # Метод для обчислення площі
         return self.width * self.height # Площа прямокутника
 
-class Parallelogram:
+class Parallelogram: #Паралелограм================================================
     def __init__(self, base, side, height):
         self.base = base # база(нижня сторона) паралелограма
         self.side = side # сторона паралелограма
@@ -56,35 +72,46 @@ class Parallelogram:
         self.side > 0
         self.height > 0
         return
-
     
-    def perimeter(self):  # Метод для обчислення периметра
-        return 2 * (self.base + self.side) # Периметр паралелограма
     def area(self):  # Метод для обчислення площі паралелограма
         return self.base * self.height # Площа паралелограма
         
 
-class Circle:
+class Circle: #Коло================================================
     def __init__(self, radius):  # Ініціалізація об'єкта класу Circle
         self.radius = radius  # радіуса кола
 
         if not self.is_valid():
-            raise ValueError("Трикутник із такими сторонами не існує") # Перевірка чи існує трикутник з такими сторонами
+            raise ValueError("--- Таке коло не існує") # Перевірка чи існує коло з таким радіусом
     
     def is_valid(self):
        return self.radius > 0
     
-    def perimeter(self):  # Метод для обчислення довжини кола
-        return 2 * math.pi * self.radius # Довжина кола
     def area(self):  # Метод для обчислення площі паралелограма
         return math.pi * self.radius ** 2 # Площа кола    
+class Ball : #Куля================================================
+    def __init__(self, radius):  # Ініціалізація об'єкта класу Circle
+        self.radius = radius  # радіуса кола
+        
+        if not self.is_valid():
+            raise ValueError("Таке коло не існує") # Перевірка
+    
+    def is_valid(self):
+       return self.radius > 0
+    
+    def area(self):  # Метод для обчислення площі паралелограма
+        return 4 * math.pi * self.radius ** 2 # Площа кола    
+    
+class Cone: #Конус================================================
+    def __init__(self, radius, height):  # Ініціалізація об'єкта класу Circle
+        self.radius = radius  # радіуса кола
+        self.height = height
+        
     
 def Distribution(file_name):
     d=open(file_name) # Викликаємо функцію read для зчитування файлу
     max_area =0
-    max_perimeter = 0 # Ініціалізуємо максимальний периметр
     max_area_obj = None # Ініціалізуємо максимальну площу та об'єкт з максимальною площею
-    max_perimeter_obj = None # Ініціалізуємо максимальний периметр та об'єкт з максимальною площею
     for line in d: 
         line = line.split()  
         try:
@@ -108,17 +135,11 @@ def Distribution(file_name):
         if obj.area() > max_area: # Якщо площа фігури більша за максимальну площу
             max_area = obj.area() # Оновлюємо максимальну площу
             max_area_obj = obj # Оновлюємо об'єкт з максимальною площею   
-        if obj.perimeter() > max_perimeter: # Якщо периметр фігури більший за максимальну площу
-            max_perimeter = obj.perimeter() # Оновлюємо максимальну площу
-            max_perimeter_obj = obj # Оновлюємо об'єкт з максимальною площею
 
     print("=======================")
     print(f"Максимальна площа: {max_area_obj.area()}") # Виводимо максимальну площу
     print(max_area_obj)
-
-    print(f"Максимальний периметр : {max_area_obj.perimeter()}") # Виводимо максимальний периметр            
-    print (max_perimeter_obj)
-  
+    print("=======================")
 
 read("input01.txt")
 read("input02.txt")
