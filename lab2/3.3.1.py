@@ -1,34 +1,67 @@
 from reader import read 
 import math
 
-class Triangle: #Трикутник================================================
+
+class Figure: #Базовий клас для всіх фігур================================================
+    def __init__(self):
+        pass  # Базовий клас не має атрибутів
+
+    def dimension(self):  
+        raise NotImplementedError("Цей метод потрібно реалізувати в підкласах")  
+
+    def square(self): 
+        raise NotImplementedError("Цей метод потрібно реалізувати в підкласах")  
+
+    def perimeter(self):
+        raise NotImplementedError("Цей метод потрібно реалізувати в підкласах")  
+
+    def  squareSurface(self):
+          raise NotImplementedError("Цей метод потрібно реалізувати в підкласах") 
+
+    def  squareBase(self):
+          raise NotImplementedError("Цей метод потрібно реалізувати в підкласах") 
+
+    def   height(self):
+          raise NotImplementedError("Цей метод потрібно реалізувати в підкласах") 
+
+    def   volume(self):
+          raise NotImplementedError("Цей метод потрібно реалізувати в підкласах") 
+
+
+
+
+class Triangle(Figure): #Трикутник================================================
     def __init__(self, a, b, c):
         self.a = a # Ініціалізація об'єкта класу Triangle сторона трикутника
         self.b = b
         self.c = c
-        
+        self.dimension = 2 # Вимірювання трикутника
         if not self.is_valid():
             raise ValueError("Трикутник із такими сторонами не існує") # Перевірка чи існує трикутник з такими сторонами
     
     def is_valid(self):
         return self.a + self.b > self.c and self.a + self.c > self.b and self.b + self.c > self.a   # Перевірка чи існує трикутник з такими сторонами
+    
     def perimeter(self):  # Метод для обчислення периметра
         return self.a + self.b + self.c     # Периметр трикутника
-       
-    
-    def area(self):  # Метод для обчислення площі трикутника
+
+    def square(self):  # Метод для обчислення площі трикутника
         s = self.perimeter() / 2
         a = math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c)) # Площа трикутника
         return a
+    
+    def dimension(self): 
+        return self.dimension
 
 
 
-class TriangularPyramid: #Трикутна піраміда================================================
+class TriangularPyramid(Triangle): #Трикутна піраміда================================================
     def __init__(self, a, b, c, height):  # Ініціалізація об'єкта класу TriangularPyramid
         self.a = a  # Сторона трикутника
         self.b = b  # Сторона трикутника
         self.c = c  # Сторона трикутника
         self.height = height  # Висота піраміди
+        self.dimension = 3 # Вимірювання піраміди
 
         if not self.is_valid():
             raise ValueError("Трикутник із такими сторонами не існує") # Перевірка чи існує трикутник з такими сторонами
@@ -36,13 +69,32 @@ class TriangularPyramid: #Трикутна піраміда=====================
     def is_valid(self):
         return self.a + self.b > self.c and self.a + self.c > self.b and self.b + self.c > self.a   # Перевірка чи існує трикутник з такими сторонами
 
-    def area(self):  # Метод для обчислення площі піраміди
+    def perimeter(self):  # Метод для обчислення периметра
+        return self.a + self.b + self.c
+
+    def square(self):  # Метод для обчислення площі піраміди
         s = (self.a + self.b + self.c) / 2
-        area_triangle = math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c))  # Площа основи піраміди
-        return area_triangle * self.height / 3  # Площа піраміди
+        square_triangle = math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c))  # Площа основи піраміди
+        return square_triangle * self.height / 3  # Площа піраміди
+
+    def dimension(self): 
+        return self.dimension
+
+class Quadrilateral(Figure): #Чотирикутник================================================
+    def __init__(self, a, b):
+        self.a = a  # Ініціалізація об'єкта класу Quadrilateral
+        self.b = b  # Сторона трикутника
+        self.diagonal = 2 # Вимірювання чотирикутника
+
+        if not self.is_valid():
+            raise ValueError("Трикутник із такими сторонами не існує") # Перевірка чи існує трикутник з такими сторонами
+    def is_valid(self):
+        return self.a > 0 and self.b > 0 # Перевірка чи існує трикутник з такими сторонами
 
 
-class QuadrangularPyramid: #Чотирикутна піраміда================================================
+
+
+class QuadrangularPyramid(Quadrilateral): #Чотирикутна піраміда================================================
     def __init__(self, a, b, c, d, height):  # Ініціалізація об'єкта класу QuadrangularPyramid
         self.a = a  # Сторона трикутника
         self.b = b  # Сторона трикутника
@@ -55,14 +107,16 @@ class QuadrangularPyramid: #Чотирикутна піраміда=============
     
     def is_valid(self):
         return self.a + self.b > self.c and self.a + self.c > self.b and self.b + self.c > self.a   # Перевірка чи існує трикутник з такими сторонами
+    def perimeter(self):  # Метод для обчислення периметра
+        return self.a + self.b + self.c + self.d
 
-    def area(self):  # Метод для обчислення площі піраміди
+    def square(self):  # Метод для обчислення площі піраміди
         s = (self.a + self.b + self.c + self.d) / 2
-        area_triangle = math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c) * (s - self.d))  # Площа основи піраміди
-        return area_triangle * self.height / 3  # Площа піраміди
+        square_triangle = math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c) * (s - self.d))  # Площа основи піраміди
+        return square_triangle * self.height / 3  # Площа піраміди
 
 
-class Rectangle: #Прямокутник================================================
+class Rectangle(Quadrilateral): #Прямокутник================================================
     def __init__(self, width, height):  # Ініціалізація об'єкта класу Rectangle
         self.width = width  # Збереження ширини прямокутника
         self.height = height  # Збереження висоти прямокутника
@@ -73,11 +127,13 @@ class Rectangle: #Прямокутник========================================
     
     def is_valid(self):
         return self.width > 0 and self.height > 0
-    
-    def area(self):  # Метод для обчислення площі
+    def perimeter(self):  # Метод для обчислення периметра
+        return 2 * (self.width + self.height) # Периметр прямокутника
+
+    def square(self):  # Метод для обчислення площі
         return self.width * self.height # Площа прямокутника
 
-class Parallelogram: #Паралелограм================================================
+class Parallelogram(Quadrilateral): #Паралелограм================================================
     def __init__(self, base, side, height):
         self.base = base # база(нижня сторона) паралелограма
         self.side = side # сторона паралелограма
@@ -93,10 +149,14 @@ class Parallelogram: #Паралелограм==================================
         self.height > 0
         return
     
-    def area(self):  # Метод для обчислення площі паралелограма
+
+    
+    def perimeter(self):  # Метод для обчислення периметра
+        return 2 * (self.base + self.side) # Периметр паралелограма
+    def square(self):  # Метод для обчислення площі паралелограма
         return self.base * self.height # Площа паралелограма
         
-class Trapeze: #Трапеція================================================
+class Trapeze(Quadrilateral): #Трапеція================================================
     def __init__(self, base1, base2, height):  # Ініціалізація об'єкта класу Trapeze
         self.base1 = base1  # Збереження основи трапеції
         self.base2 = base2  # Збереження основи трапеції
@@ -107,12 +167,14 @@ class Trapeze: #Трапеція================================================
     
     def is_valid(self):
         return self.base1 > 0 and self.base2 > 0 and self.height > 0
-    
-    def area(self):  # Метод для обчислення площі трапеції
+    def perimeter(self):  # Метод для обчислення периметра
+        return self.base1 + self.base2 + 2 * math.sqrt(self.height**2 + ((self.base1 - self.base2) / 2)**2)
+
+    def square(self):  # Метод для обчислення площі трапеції
         return (self.base1 + self.base2) * self.height / 2 # Площа трапеції
 
 
-class Circle: #Коло================================================
+class Circle(Figure): #Коло================================================
     def __init__(self, radius):  # Ініціалізація об'єкта класу Circle
         self.radius = radius  # радіуса кола
 
@@ -122,11 +184,13 @@ class Circle: #Коло================================================
     def is_valid(self):
        return self.radius > 0
     
-    def area(self):  # Метод для обчислення площі паралелограма
+    def square(self):  # Метод для обчислення площі паралелограма
         return math.pi * self.radius ** 2 # Площа кола    
+    def perimeter(self):  # Метод для обчислення довжини кола
+        return 2 * math.pi * self.radius # Довжина кола
     
 
-class Ball : #Куля================================================
+class Ball(Circle): #Куля================================================
     def __init__(self, radius):  # Ініціалізація об'єкта класу Circle
         self.radius = radius  # радіуса кола
         
@@ -135,11 +199,14 @@ class Ball : #Куля================================================
     
     def is_valid(self):
        return self.radius > 0
+     
+    def perimeter(self):  # Метод для обчислення довжини кола
+        return 2 * math.pi * self.radius # Довжина кола
     
-    def area(self):  # Метод для обчислення площі паралелограма
+    def square(self):  # Метод для обчислення площі паралелограма
         return 4 * math.pi * self.radius ** 2 # Площа кола    
     
-class Cone: #Конус================================================
+class Cone(Circle): #Конус================================================
     def __init__(self, radius, height):  # Ініціалізація об'єкта класу Circle
         self.radius = radius  # радіуса кола
         self.height = height  # висота конуса
@@ -160,8 +227,8 @@ class Cone: #Конус================================================
     
 def Distribution(file_name):
     d=open(file_name) # Викликаємо функцію read для зчитування файлу
-    max_area =0
-    max_area_obj = None # Ініціалізуємо максимальну площу та об'єкт з максимальною площею
+    max_square =0
+    max_square_obj = None # Ініціалізуємо максимальну площу та об'єкт з максимальною площею
     for line in d: 
         line = line.split()  
         try:
@@ -192,14 +259,14 @@ def Distribution(file_name):
             continue
 
 
-        print(f"{line[0]} area:{obj.area()}") # Виводимо площу фігури
-        if obj.area() > max_area: # Якщо площа фігури більша за максимальну площу
-            max_area = obj.area() # Оновлюємо максимальну площу
-            max_area_obj = obj # Оновлюємо об'єкт з максимальною площею   
+        print(f"{line[0]} area:{obj.square()}") # Виводимо площу фігури
+        if obj.square() > max_square: # Якщо площа фігури більша за максимальну площу
+            max_square = obj.square() # Оновлюємо максимальну площу
+            max_square_obj = obj # Оновлюємо об'єкт з максимальною площею   
 
     print("=======================")
-    print(f"Максимальна площа: {max_area_obj.area()}") # Виводимо максимальну площу
-    print(max_area_obj)
+    print(f"Максимальна площа: {max_square_obj.square()}") # Виводимо максимальну площу
+    print(max_square_obj)
     print("=======================")
 
 read("input01.txt")
