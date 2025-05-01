@@ -52,8 +52,29 @@ class Triangle(Figure): #Трикутник=====================================
     
     def dimension(self): 
         return self.dimension
+class TriangularPrism(Triangle): #Трикутна піраміда================================================
+    def __init__(self, a, b, c, height):  # Ініціалізація об'єкта класу TriangularPyramid
+        self.a = a  # Сторона трикутника
+        self.b = b  # Сторона трикутника
+        self.c = c  # Сторона трикутника
+        self.height = height  # Висота піраміди
+        self.dimension = 3 # Вимірювання піраміди
+        
+        if not self.is_valid():
+            raise ValueError("Трикутник із такими сторонами не існує") # Перевірка чи існує трикутник з такими сторонами
+    
+    def is_valid(self):
+        return self.a + self.b > self.c and self.a + self.c > self.b and self.b + self.c > self.a   # Перевірка чи існує трикутник з такими сторонами
 
+    def perimeter(self):  # Метод для обчислення периметра
+        return self.a + self.b + self.c
 
+    def square(self):  
+            s = (self.a + self.b + self.c) / 2
+            square_triangle = math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c))
+            return square_triangle * self.height
+    def dimension(self): 
+        return self.dimension
 
 class TriangularPyramid(Triangle): #Трикутна піраміда================================================
     def __init__(self, a, b, c, height):  # Ініціалізація об'єкта класу TriangularPyramid
@@ -95,25 +116,21 @@ class Quadrilateral(Figure): #Чотирикутник==========================
 
 
 class QuadrangularPyramid(Quadrilateral): #Чотирикутна піраміда================================================
-    def __init__(self, a, b, c, d, height):  # Ініціалізація об'єкта класу QuadrangularPyramid
+    def __init__(self, a, b, height):  # Ініціалізація об'єкта класу QuadrangularPyramid
         self.a = a  # Сторона трикутника
         self.b = b  # Сторона трикутника
-        self.c = c  # Сторона трикутника
-        self.d = d  # Сторона трикутника
         self.height = height  # Висота піраміди
 
         if not self.is_valid():
             raise ValueError("Трикутник із такими сторонами не існує") # Перевірка чи існує трикутник з такими сторонами
     
     def is_valid(self):
-        return self.a + self.b > self.c and self.a + self.c > self.b and self.b + self.c > self.a   # Перевірка чи існує трикутник з такими сторонами
+        return self.a > 0 and self.b > 0 and self.height > 0
     def perimeter(self):  # Метод для обчислення периметра
-        return self.a + self.b + self.c + self.d
+        return 2 * (self.a + self.b)
 
     def square(self):  # Метод для обчислення площі піраміди
-        s = (self.a + self.b + self.c + self.d) / 2
-        square_triangle = math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c) * (s - self.d))  # Площа основи піраміди
-        return square_triangle * self.height / 3  # Площа піраміди
+        return self.a * self.b + 2 * (self.a + self.b) * math.sqrt(self.height**2 + ((self.a - self.b) / 2)**2)
 
 
 class Rectangle(Quadrilateral): #Прямокутник================================================
@@ -228,33 +245,38 @@ class Cone(Circle): #Конус================================================
 def Distribution(file_name):
     d=open(file_name) # Викликаємо функцію read для зчитування файлу
     max_square =0
+    max_perimeter = 0 # Ініціалізуємо максимальний периметр
     max_square_obj = None # Ініціалізуємо максимальну площу та об'єкт з максимальною площею
+    max_perimeter_obj = None # Ініціалізуємо максимальний периметр та об'єкт з максимальною площею
     for line in d: 
         line = line.split()  
         try:
             if line[0] == "Triangle" :
                 obj = Triangle(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Triangle
             elif line[0] == "TriangularPyramid" :
-                obj = TriangularPyramid(float(line[1])) # Створюємо об'єкт класу TriangularPyramid
+                obj = TriangularPyramid(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу TriangularPyramid
             elif line[0] == "QuadrangularPyramid" :
-                obj = QuadrangularPyramid(float(line[1]), float(line[2])) # Створюємо об'єкт класу QuadrangularPyramid
+                obj = QuadrangularPyramid(float(line[1]), float(line[2]),  float(line[3])) # Створюємо об'єкт класу QuadrangularPyramid
             elif line[0] == "Rectangle" :
-                obj = Rectangle(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Rectangle
+                obj = Rectangle(float(line[1]), float(line[2])) # Створюємо об'єкт класу Rectangle
             elif line[0] == "Parallelogram" :
-                obj = Parallelogram(float(line[1])) # Створюємо об'єкт класу Parallelogram
+                obj = Parallelogram(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Parallelogram
             elif line[0] == "Trapeze" :
-                obj = Trapeze(float(line[1]), float(line[2])) # Створюємо об'єкт класу Trapeze
+                obj = Trapeze(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Trapeze
             elif line[0] == "Circle" :
-                obj = Circle(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Circle
+                obj = Circle(float(line[1])) # Створюємо об'єкт класу Circle
             elif line[0] == "Ball" :
-                obj = Ball(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Ball
+                obj = Ball(float(line[1])) # Створюємо об'єкт класу Ball
             elif line[0] == "Cone" :
-                obj = Cone(float(line[1]), float(line[2]), float(line[3])) # Створюємо об'єкт класу Cone
+                obj = Cone(float(line[1]), float(line[2]))
+            elif line[0] == "TriangularPrism" :
+                obj = TriangularPrism(float(line[1]), float(line[2]), float(line[3]),  float(line[4]))
+
             else:
-                print("Невідомий тип фігури")
+                print(f"Невідомий тип фігури - {line[0]}") # Якщо фігура невідома, виводимо повідомлення
                 continue  # Пропускаємо невідомі фігури
         except:
-            print("Помилка при створенні фігури")
+            print("Помилка при створенні фігури:") # Якщо сталася помилка при створенні фігури, виводимо повідомлення
             print(line)
             continue
 
@@ -263,19 +285,20 @@ def Distribution(file_name):
         if obj.square() > max_square: # Якщо площа фігури більша за максимальну площу
             max_square = obj.square() # Оновлюємо максимальну площу
             max_square_obj = obj # Оновлюємо об'єкт з максимальною площею   
+        if obj.perimeter() > max_perimeter: # Якщо периметр фігури більший за максимальну площу
+            max_perimeter = obj.perimeter() # Оновлюємо максимальну площу
+            max_perimeter_obj = obj # Оновлюємо об'єкт з максимальною площею
 
     print("=======================")
     print(f"Максимальна площа: {max_square_obj.square()}") # Виводимо максимальну площу
     print(max_square_obj)
+    print(f"Максимальний периметр : {max_square_obj.perimeter()}") # Виводимо максимальний периметр            
+    print (max_perimeter_obj)
     print("=======================")
 
-read("input01.txt")
-read("input02.txt")
-read("input03.txt")
-
-
 # Основна програма
-content_file = input("Введіть ім'я файлу зі списком файлів: ") # Запитуємо ім'я файлу зі списком файлів
+#content_file = input("Введіть ім'я файлу (0^0) : ") # Запитуємо ім'я файлу зі списком файлів
+content_file = "input03.txt"
 Distribution(content_file) # Викликаємо функцію Distribution для розподілу фігур по файлах
 
 

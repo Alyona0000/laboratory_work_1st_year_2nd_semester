@@ -1,0 +1,2 @@
+                        Circle   2
+        TriangularPrism   17    12    7   15 

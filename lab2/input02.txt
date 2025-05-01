@@ -8,7 +8,7 @@
                      Rectangle   10   10 
                TriangularPrism    2    0    0   11 
                      Rectangle   17    6 
-                        Circle   12 
+                        Circle   312
                       Triangle    7   20   11 
      RectangularParallelepiped   13   11   19 
      RectangularParallelepiped   16   15    2 
