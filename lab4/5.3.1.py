@@ -1,52 +1,70 @@
 from reader import read 
 
-# раціональне число
 class Rational:
-    def __init__(self, numerator, denominator):
-        self.numerator = numerator # чисельник
-        self.denominator = denominator # знаменник
+    
+    def __init__(self, a, b=0):
         
+        if isinstance (a, Rational):
+            self.numerator = a.numerator
+            self.denominator = a.denominator
+        elif isinstance(a, str) and "/" in a:
+            v = a.split("/")
+            self.numerator = int(v[0])
+            self.denominator = int(v[1])
+        elif isinstance(a, str):
+            self.numerator = int(a)
+            self.denominator = 1
+        elif b == 0:
+            raise ZeroDivisionError("Ділення на нуль")
+        else:
+            self.numerator = a
+            self.denominator = b
+    def __add__(self, y): 
+        numerator = self.numerator * y.denominator + y.numerator * self.denominator
+        denominator = self.denominator * y.denominator
+        return Rational(numerator, denominator) #повертає результат арифметичних ді
+    def __sub__(self, y):
+        numerator = self.numerator * y.denominator - y.numerator * self.denominator
+        denominator = self.denominator * y.denominator
+        return Rational(numerator, denominator) #повертає результат арифметичних ді
+    def __mul__(self, y): 
+        numerator = self.numerator * y.numerator
+        denominator = self.denominator * y.denominator
+        return Rational(numerator, denominator) #повертає результат арифметичних ді
+    def __truediv__(self, y) :
+        numerator = self.numerator * y.denominator
+        denominator = self.denominator * y.numerator
+        return Rational(numerator, denominator) #повертає результат арифметичних ді
     def __str__(self): #перетводення дробу у раціональне число
         return f"{self.numerator}/{self.denominator}"
-
-#ціле число
-class Integer:
-    def __init__(self, number):
-        self.number = number # число
-        
-    def __str__(self): #перетводення цілого числа у раціональне число
-        return f"{self.number}/1"
-    
-class Arithmetic:
-    def __init__(self, add, subtraction, multiplication, division):
-        self.add = add
-        self.subtraction = subtraction
-        self.multiplication = multiplication   множення
-        self.division = 
-
-
+            
 
 def Distribution(file_name):
-    d=open(file_name)
-    integer = []
-    rational = []
-    arithmetic = []
-    d = 0
-    for namber in (file_name): 
-        line = line.split() 
-        try:    
-            if line[0] == int (namber):
-                integer.append(Integer(namber))
-            elif line[0] ==  (namber):
-            else:
-                rational.append(Rational(namber.numerator, namber.denominator))
+    d=open(file_name) 
+    
+    for l in d:
+        print(l)
+        l = l.split()
+        m = l[0]
+        i = 1
+        while  i < len(l): #перетворення рядка у список
+            b = l[i]
+            q = l[i + 1]
+            m = Rational(m)
+            q = Rational(q)
 
-        except:
-            print("Помилка")
-            print(line)
-            continue
-        d = d+1
+            if b == "+":
+                r = m + q
+            elif b == "-":
+                r = m - q
+            elif b == "*":
+                r = m * q
+            elif b== "/":
+                r = m / q
+            print(f"{m} {b} {q} = {r}")
+            m = r
+            i = i + 2
 
+    print("***")
 
-
-read("input01 (1).txt")
+Distribution("input01 (1).txt")
