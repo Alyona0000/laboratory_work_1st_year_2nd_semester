@@ -11,6 +11,7 @@ class Rational:
             v = a.split("/")
             self.numerator = int(v[0])
             self.denominator = int(v[1])
+            print(f"скородити до десятковвого дробу : {self.numerator / self.denominator}")
         elif isinstance(a, str):
             self.numerator = int(a)
             self.denominator = 1
@@ -37,34 +38,37 @@ class Rational:
         return Rational(numerator, denominator) #повертає результат арифметичних ді
     def __str__(self): #перетводення дробу у раціональне число
         return f"{self.numerator}/{self.denominator}"
-            
+        
+
 
 def Distribution(file_name):
     d=open(file_name) 
     
     for l in d:
-        print(l)
-        l = l.split()
-        m = l[0]
-        i = 1
-        while  i < len(l): #перетворення рядка у список
-            b = l[i]
-            q = l[i + 1]
-            m = Rational(m)
-            q = Rational(q)
+            print(l)
+            l = l.split()
+            m = l[0]
+            i = 1
+            while  i < len(l): #перетворення рядка у список
+                b = l[i]
+                q = l[i + 1]
+                m = Rational(m)
+                q = Rational(q)
 
-            if b == "+":
-                r = m + q
-            elif b == "-":
-                r = m - q
-            elif b == "*":
-                r = m * q
-            elif b== "/":
-                r = m / q
-            print(f"{m} {b} {q} = {r}")
-            m = r
-            i = i + 2
+                if b == "+":
+                    r = m + q
+                elif b == "-":
+                    r = m - q
+                elif b == "*":
+                    r = m * q
+                elif b== "/":
+                    r = m / q
+                print(f"{m} {b} {q} = {r}")
+                m = r
+                i = i + 2
 
     print("***")
+    
+
 
 Distribution("input01 (1).txt")

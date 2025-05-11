@@ -9,6 +9,7 @@ class Rational:
             v = a.split("/")
             self.numerator = int(v[0])
             self.denominator = int(v[1])
+            print(f"скородити до десятковвого дробу : {self.numerator / self.denominator}")
         elif isinstance(a, str):
             self.numerator = int(a)
             self.denominator = 1
@@ -17,12 +18,11 @@ class Rational:
         else:
             self.numerator = a
             self.denominator = b
-
             
     def __str__(self): #перетводення дробу у раціональне число
         return f"{self.numerator}/{self.denominator}"
 
-f = Rational("48")
+f = Rational("4/3")
 print(f.numerator)
 print(f.denominator)
 
