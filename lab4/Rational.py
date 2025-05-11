@@ -1,5 +1,3 @@
-from reader import read 
-
 class Rational:
     
     def __init__(self, a, b=0):
@@ -37,38 +35,23 @@ class Rational:
         return Rational(numerator, denominator) #повертає результат арифметичних ді
     def __str__(self): #перетводення дробу у раціональне число
         return f"{self.numerator}/{self.denominator}"
-            
-
-def Distribution(file_name):
-    d=open(file_name) 
-    
-    for l in d:
-            print(l)
-            l = l.split()
-            m = l[0]
-            i = 1
-            h = 0 #кількість елементів у списку
-            while  i < len(l): #перетворення рядка у список
-                b = l[i]
-                q = l[i + 1]
-                m = Rational(m)
-                q = Rational(q)
-
-                if b == "+":
-                    r = m + q
-                elif b == "-":
-                    r = m - q
-                elif b == "*":
-                    r = m * q
-                elif b== "/":
-                    r = m / q
-                print(f"{m} {b} {q} = {r}")
-                m = r
-                i = i + 2
-                h = h + 2
-            print(f"кількість елементів у списку {h}")
-    print("***")
     
 
+    def __getitem__(self, key): # Метод для отримання значення за ключем    
+        if key == "n":
+            return self.numerator
+        elif key == "d":
+            return self.denominator
+        else:
+            raise KeyError("Ключ має бути 'n' або 'd'") 
 
-Distribution("input03.txt")
+    def __setitem__(self, key, value): # Метод для встановлення значення за ключем
+        if key == "n":  
+            self.numerator = value
+        elif key == "d":  
+            self.denominator = value
+        else:
+            raise KeyError("Ключ має бути 'n' або 'd'") 
+        
+    def __call__(self):
+        return self.numerator / self.denominator #перетворення дробу у десятковий дріб
