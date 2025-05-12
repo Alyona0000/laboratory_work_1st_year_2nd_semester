@@ -22,6 +22,7 @@ def Distribution(file_name):
                     r = m * q
                 elif b== "/":
                     r = m / q
+                
                 print(f"{m} {b} {q} = {r}")
                 m = r
                 i = i + 2

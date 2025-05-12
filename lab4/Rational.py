@@ -19,6 +19,17 @@ class Rational:
             self.numerator = a
             self.denominator = b
 
+        a =self.gcd(self.numerator,self.denominator) 
+        if a != 1: # скорочення дробу
+            self.numerator = self.numerator // a
+            self.denominator = self.denominator // a
+
+    def gcd(self, a, b):  # НСД
+            while b != 0:
+                r = a % b
+                a = b
+                b = r
+            return a
     def __add__(self, y): 
         numerator = self.numerator * y.denominator + y.numerator * self.denominator
         denominator = self.denominator * y.denominator
