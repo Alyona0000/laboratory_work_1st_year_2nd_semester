@@ -42,50 +42,22 @@ class RationalList:
         else:
             self.rationals.append(Rational(other,1))
         return self
-    
-
-
-
-
-
-f = RationalList(["4/3", "2/5", "1/2"])
-print(f"кількість елементів у списку: {len(f)}")
-############################################################## 
-
-
-# iadd
-f += "3/7"
-  # 4/3, 2/5, 1/2, 3/7
-print(f"кількість елементів у списку: {len(f)}")
-
-g = RationalList(["1/1"])
-f += g
- # 4/3, 2/5, 1/2, 3/7, 1/1
-print(f"кількість елементів у списку: {len(f)}")
-
-
-f += 10
- # 4/3, 2/5, 1/2, 3/7, 1/1
-print(f"кількість елементів у списку: {len(f)}")
-
-
-############################################################## 
-r1 = RationalList(["1/2", "2/3"])
-r2 = RationalList(["4/5"])
-
-r3 = r1 + r2         # Два списки
-r4 = r1 + 3          # Додати int
-r5 = r1 + Rational(5, 2)  # Додати Rational
-
-print(r1[1])
-
-print(r3[2])
-
+    def sum(self):
+        total = Rational(0)  # Початкова сума
+        for rational in self.rationals:
+            total += rational
+        return total
 
 
 def Distribution(file_name):
-    d=open(file_name) 
-    
-    for l in d:
-            print(l)
-            l = l.split()
+    with open(file_name) as d: 
+        for line in d:
+            print(f"Обробка списка: {line.strip()}")
+            elements = line.split()
+            rational_list = RationalList(elements)  
+
+            result = rational_list.sum()  
+            print(f"Сума чисел в списку: {result}")
+            print("---")
+
+Distribution("input02.txt")
