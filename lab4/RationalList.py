@@ -43,7 +43,7 @@ class RationalList:
             self.rationals.append(Rational(other,1))
         return self
     def sum(self):
-        total = Rational(0)  # Початкова сума
+        total = Rational(0,1) # Початкова сума
         for rational in self.rationals:
             total += rational
         return total
@@ -52,12 +52,13 @@ class RationalList:
 def Distribution(file_name):
     with open(file_name) as d: 
         for line in d:
-            print(f"Обробка списка: {line.strip()}")
+
+            #print(f"Обробка списка: {line.strip()}")
             elements = line.split()
             rational_list = RationalList(elements)  
 
             result = rational_list.sum()  
             print(f"Сума чисел в списку: {result}")
-            print("---")
+        print("---")
 
-Distribution("input02.txt")
+Distribution("input03.txt")

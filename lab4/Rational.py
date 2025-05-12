@@ -13,26 +13,32 @@ class Rational:
             self.numerator = int(a)
             self.denominator = 1
         elif b == 0:
+
             raise ZeroDivisionError("Ділення на нуль")
         else:
             self.numerator = a
             self.denominator = b
+
     def __add__(self, y): 
         numerator = self.numerator * y.denominator + y.numerator * self.denominator
         denominator = self.denominator * y.denominator
         return Rational(numerator, denominator) #повертає результат арифметичних ді
+    
     def __sub__(self, y):
         numerator = self.numerator * y.denominator - y.numerator * self.denominator
         denominator = self.denominator * y.denominator
         return Rational(numerator, denominator) #повертає результат арифметичних ді
+
     def __mul__(self, y): 
         numerator = self.numerator * y.numerator
         denominator = self.denominator * y.denominator
         return Rational(numerator, denominator) #повертає результат арифметичних ді
+
     def __truediv__(self, y) :
         numerator = self.numerator * y.denominator
         denominator = self.denominator * y.numerator
         return Rational(numerator, denominator) #повертає результат арифметичних ді
+
     def __str__(self): #перетводення дробу у раціональне число
         return f"{self.numerator}/{self.denominator}"
     
