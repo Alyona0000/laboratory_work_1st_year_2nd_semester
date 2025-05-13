@@ -4,7 +4,6 @@ class RationalList:
     def __init__(self, args):
         self.rationals = [Rational(arg) for arg in args] # заміна цикло
 
-
     def __add__(self, other):
         if isinstance(other, RationalList):
             return RationalList(self.rationals + other.rationals)
@@ -47,3 +46,10 @@ class RationalList:
         for rational in self.rationals:
             total += rational
         return total
+    
+    def __iter__(self):
+        return iter(sorted(
+            self.rationals,
+            key=lambda r: (r.denominator, r.numerator),
+            reverse=True
+        ))
