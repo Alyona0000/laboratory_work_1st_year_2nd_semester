@@ -1,3 +1,10 @@
+# 7.3.1
+# Опишіть клас виключення RationalError, що є нащадком класу ZeroDivisionError та ініціюється у випадку якщо при
+# створенні екземпляру класу Rational описаного у задачі 5.3.1. знаменник дорівнює нулю.
+class RationalError(ZeroDivisionError):
+    def __init__(self, message="Знаменник не може дорівнювати нулю"):
+        super().__init__(message)
+        
 class Rational:
     
     def __init__(self, a, b=0):
@@ -14,8 +21,7 @@ class Rational:
             self.denominator = 1
         elif b == 0:
 
-            raise RationalError()
-    
+            raise ZeroDivisionError("Ділення на нуль")
         else:
             self.numerator = a
             self.denominator = b
@@ -73,3 +79,29 @@ class Rational:
         
     def __call__(self):
         return self.numerator / self.denominator #перетворення дробу у десятковий дріб
+
+
+def Distribution(file_name):
+    with open(file_name) as d: 
+        for line in d:
+            elements = line.split()
+            rationals = []
+
+            for part in elements:
+                try:
+                    r = Rational(part)
+                    rationals.append(r)
+                except RationalError as e:
+                    print(f"Помилка: {part} — {e}")
+                    continue
+
+            if rationals:
+                total = rationals[0]
+                for r in rationals[1:]:
+                    total = total + r
+                print(f"Сума чисел в списку: {total}")
+            else:
+                print("Жодного коректного дробу не знайдено.")
+            print("---")
+
+Distribution("input03.txt")

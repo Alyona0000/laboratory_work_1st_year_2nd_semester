@@ -1,7 +1,5 @@
 from RationalList import RationalList
 
-from RationalList import RationalList
-
 def Distribution(file_name):
     with open(file_name, encoding='utf-8') as d: 
         for line_number, line in enumerate(d, start=1):
